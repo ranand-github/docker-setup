@@ -8,7 +8,6 @@
 FROM ubuntu:jammy
 ENV DEBIAN_FRONTEND noninteractive
 
-# Add repo for the right gcc
 RUN apt-get update \
    && apt-get -y --quiet --no-install-recommends install software-properties-common
 
@@ -69,10 +68,6 @@ RUN apt-get update \
 
 RUN /usr/sbin/useradd -m -s /bin/bash -G sudo user \
   && echo user:user | /usr/sbin/chpasswd
-
-# Add the file to configure the build environment
-## TODO: these two lines don't need to exist for the gitlab CI to run
-ADD setup-build.bash /home/user
 
 # set defualt user to user when launch docker
 USER user
